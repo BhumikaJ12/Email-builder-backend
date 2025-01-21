@@ -1,0 +1,17 @@
+.App {
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    align-items: center; /* Center horizontally */
+    justify-content: center; /* Center vertically */
+    min-height: 100vh; /* Ensure full viewport height */
+    background-color: #141414; /* Optional: Matches the dark mode */
+    color: #ffffff; /* Ensure text visibility in dark mode */
+    text-align: center; /* Center-align text */
+  }
+  
+  h1 {
+    margin-bottom: 0px; /* Add space below the heading */
+    font-size: 3.5rem; /* Optional: Adjust heading size */
+    color: #e50914; /* Netflix-inspired red */
+  }
+  
