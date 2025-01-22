@@ -2,22 +2,24 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
-const sequelize = require('../config/db'); // Adjusted path
-const emailRoutes = require('../routes/emailRoutes'); // Adjusted path
+const sequelize = require('../config/db'); // Database connection
+const emailRoutes = require('../routes/emailRoutes'); // Email routes
 const fs = require('fs');
+const serverless = require('serverless-http'); // Required for serverless functions
+require('dotenv').config(); // Load environment variables
+
 const app = express();
-require('dotenv').config();
+const uploadDir = path.join(__dirname, '../uploads'); // Uploads directory
 
-const uploadDir = path.join(__dirname, '../uploads'); // Adjusted path
-
+// Ensure the uploads folder exists
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir);
 }
 
 // Middleware
-
 app.use(cors({
-  origin: '*', // Allow all origins (or specify your frontend's domain for better security)
+  origin: '*', // Replace with specific domains for production
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
 }));
 app.use(bodyParser.json());
 app.use('/uploads', express.static(uploadDir));
@@ -32,4 +34,4 @@ sequelize
   .catch((err) => console.error('Database sync error:', err));
 
 // Export the app as a serverless function
-module.exports = app;
+module.exports = serverless(app);
